@@ -6,6 +6,12 @@ func main() {
 	arr := []string{"a", "b", "c", "d", "e"}
 	min := 2
 	max := 6
+
+	res := initialShingle(min, max, arr)
+	fmt.Println(res)
+}
+
+func initialShingle(min, max int, arr []string) []string {
 	res := []string{}
 	for i := 0; i < len(arr); i++ {
 		cmin := min
@@ -16,8 +22,7 @@ func main() {
 			res = append(res, merge(arr[i:j+cmin]))
 		}
 	}
-
-	fmt.Println(res)
+	return res
 }
 
 func merge(arr []string) string {
