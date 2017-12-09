@@ -19,8 +19,8 @@ var cases = []struct {
 		out: []string{},
 	},
 	{
-		in:  in{min: 2, max: 3, arr: []string{"a", "b", "c", "d", "e"}},
-		out: []string{"ab", "abc", "bc", "bcd", "cd", "cde", "de"},
+		in:  in{min: 2, max: 2, arr: []string{"a", "b", "c", "d", "e"}},
+		out: []string{"ab", "bc", "cd", "de"},
 	},
 	{
 		in:  in{min: 2, max: 5, arr: []string{"a", "b", "c", "d", "e"}},
@@ -30,13 +30,6 @@ var cases = []struct {
 		in:  in{min: 2, max: 100, arr: []string{"a", "b", "c", "d", "e"}},
 		out: []string{"ab", "abc", "abcd", "abcde", "bc", "bcd", "bcde", "cd", "cde", "de"},
 	},
-}
-
-func TestInitialShingle(t *testing.T) {
-	for _, c := range cases {
-		res := initialShingle(c.in.min, c.in.max, c.in.arr)
-		equal(t, res, c.out)
-	}
 }
 
 func equal(t *testing.T, res, exp []string) {
@@ -60,4 +53,11 @@ func contains(str string, arr []string) bool {
 		}
 	}
 	return false
+}
+
+func TestInitialShingle(t *testing.T) {
+	for _, c := range cases {
+		res := initialShingle(c.in.min, c.in.max, c.in.arr)
+		equal(t, res, c.out)
+	}
 }
