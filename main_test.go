@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -88,7 +87,6 @@ func BenchmarkInitialShingle(b *testing.B) {
 func TestShingle2(t *testing.T) {
 	for _, c := range cases {
 		res := shingle2(c.in.min, c.in.max, c.in.arr)
-		fmt.Println(res)
 		equal(t, res, c.out)
 	}
 }
@@ -99,5 +97,21 @@ func BenchmarkShingle2(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		shingle2(2, 100, arr)
+	}
+}
+
+func TestShingle3(t *testing.T) {
+	for _, c := range cases {
+		res := shingle3(c.in.min, c.in.max, c.in.arr)
+		equal(t, res, c.out)
+	}
+}
+
+func BenchmarkShingle3(b *testing.B) {
+	arr := initial()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		shingle3(2, 100, arr)
 	}
 }

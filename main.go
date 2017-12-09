@@ -1,24 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	arr := []string{"a", "b", "c", "d", "e"}
 	min := 2
-	max := 6
+	max := 4
 
 	res := initialShingle(min, max, arr)
 	fmt.Println(res)
 	res = shingle2(min, max, arr)
 	fmt.Println(res)
-}
-
-func merge(arr []string) string {
-	var s string
-	for _, v := range arr {
-		s += v
-	}
-	return s
 }
 
 func initialShingle(min, max int, arr []string) []string {
@@ -33,7 +28,11 @@ func initialShingle(min, max int, arr []string) []string {
 			if len(arr[i:j+cmin]) > max {
 				break
 			}
-			res = append(res, merge(arr[i:j+cmin]))
+			var s string
+			for _, v := range arr[i : j+cmin] {
+				s += v
+			}
+			res = append(res, s)
 		}
 	}
 	return res
@@ -45,16 +44,12 @@ func shingle2(min, max int, arr []string) []string {
 	}
 
 	// for alloc array
-	if max > len(arr) {
-		max = len(arr)
-	}
-	maxLen := max - min + 1
+	maxLen := len(arr)
 	resLen := 0
 	for maxLen > 0 {
 		resLen += maxLen
 		maxLen--
 	}
-	fmt.Println(resLen)
 	res := make([]string, resLen)
 
 	idx := 0
@@ -64,10 +59,32 @@ func shingle2(min, max int, arr []string) []string {
 			if len(arr[i:j+cmin]) > max {
 				break
 			}
-			res[idx] = merge(arr[i : j+cmin])
+			var s string
+			for _, v := range arr[i : j+cmin] {
+				s += v
+			}
+			res[idx] = s
 			idx++
 		}
 	}
 
+	return res[0:idx]
+}
+
+func shingle3(min, max int, arr []string) []string {
+	res := []string{}
+	if min > max {
+		return res
+	}
+
+	for i := 0; i < len(arr); i++ {
+		cmin := min
+		for j := i; j+cmin < len(arr)+1; j++ {
+			if len(arr[i:j+cmin]) > max {
+				break
+			}
+			res = append(res, strings.Join(arr[i:j+cmin], ""))
+		}
+	}
 	return res
 }
