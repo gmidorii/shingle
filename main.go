@@ -11,8 +11,20 @@ func main() {
 	fmt.Println(res)
 }
 
+func merge(arr []string) string {
+	var s string
+	for _, v := range arr {
+		s += v
+	}
+	return s
+}
+
 func initialShingle(min, max int, arr []string) []string {
 	res := []string{}
+	if min > max {
+		return res
+	}
+
 	for i := 0; i < len(arr); i++ {
 		cmin := min
 		for j := i; j+cmin < len(arr)+1; j++ {
@@ -23,12 +35,4 @@ func initialShingle(min, max int, arr []string) []string {
 		}
 	}
 	return res
-}
-
-func merge(arr []string) string {
-	var s string
-	for _, v := range arr {
-		s += v
-	}
-	return s
 }
